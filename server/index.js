@@ -1,3 +1,8 @@
+require('dotenv').config();
+app.get("/", (req, res) => {
+  res.send("Backend is working! 🚀");
+});
+
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
@@ -8,6 +13,7 @@ import userRoutes from './routes/users.js';
 import bookingRoutes from './routes/bookings.js';
 import authRoutes from './routes/auth.js';
 import { initDatabase } from './database.js';
+
 
 dotenv.config();
 
@@ -55,3 +61,7 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch((err) => console.error("❌ Connection error:", err));
